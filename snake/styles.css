@@ -1,65 +1,69 @@
+/* Base Styles */
+:root {
+    --game-green: #00E436;
+    --game-bright-green: #29FF4D;
+    --game-border: #333;
+    --game-background: #000;
+    --overlay-background: rgba(0, 0, 0, 0.9);
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    font-family: 'Arial', sans-serif;
 }
 
+/* Game Container */
 .game-container {
-    text-align: center;
     position: relative;
+    text-align: center;
     margin: 0 auto;
 }
 
+/* Canvas Styles */
 #gameCanvas {
-    border: 3px solid #333;
-    border-radius: 10px;
-    background-color: #000;
     width: 600px;
     height: 600px;
+    border: 3px solid var(--game-border);
+    border-radius: 10px;
+    background-color: var(--game-background);
 }
 
-.score,
-.leaderboard,
-.restart-hint {
-    color: #00E436;
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
+/* Score Styles */
+.score-container {
+    margin: 15px 0;
+    color: var(--game-green);
 }
 
 .score {
-    margin: 15px 0;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
 .leaderboard {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin: 15px 0;
+    font-size: 24px;
 }
 
-.restart-hint {
+/* Overlay Styles */
+.overlay {
     position: absolute;
     left: 0;
     right: 0;
-    margin-top: 15px;
-    font-style: italic;
-    display: none;
-}
-
-.restart-hint.active {
-    display: block;
+    color: var(--game-green);
 }
 
 .directions-overlay {
-    position: absolute;
-    left: 0;
     top: 0;
     width: 600px;
     height: 600px;
-    background: rgba(0, 0, 0, 0.9);
+    background: var(--overlay-background);
     display: none;
 }
 
@@ -70,22 +74,34 @@ body {
 }
 
 .directions-content {
-    text-align: center;
-    color: #00E436;
+    padding: 20px;
 }
 
-.directions-content h2 {
+.directions-content h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
 }
 
-.directions-content p {
+.instructions p {
     margin: 1rem 0;
     font-size: 1.2rem;
 }
 
 .start-hint {
-    color: #29FF4D;
-    margin-top: 2rem !important;
+    color: var(--game-bright-green);
+    margin-top: 2rem;
     font-style: italic;
+    font-size: 1.2rem;
+}
+
+/* Game Over Styles */
+.restart-hint {
+    margin-top: 15px;
+    font-style: italic;
+    font-size: 24px;
+    display: none;
+}
+
+.restart-hint.active {
+    display: block;
 }

@@ -5,6 +5,7 @@
  * Objective: Eat food to grow and avoid hitting walls or yourself
  */
 
+// DOM Elements
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('scoreValue');
@@ -13,24 +14,35 @@ const directionsOverlay = document.getElementById('directionsOverlay');
 const bestScoreElement = document.getElementById('bestScore');
 const lastScoreElement = document.getElementById('lastScore');
 
+// Game Constants
 const GRID_SIZE = 30;
 const TILE_COUNT = 20;
 const GAME_SPEED = 100;
 
+// Canvas Setup
 canvas.width = GRID_SIZE * TILE_COUNT;
 canvas.height = GRID_SIZE * TILE_COUNT;
 
+// Game state variables
 let score = 0;
 let velocityX = 0;
 let velocityY = 0;
 let snake = [];
 let foodX, foodY;
-
 let bestScore = parseInt(localStorage.getItem('snakeBestScore')) || 0;
 let lastScore = parseInt(localStorage.getItem('snakeLastScore')) || 0;
+
+// Initialize score display
 bestScoreElement.textContent = bestScore;
 lastScoreElement.textContent = lastScore;
 
+// Initialize snake and food positions
+const initialPositions = getInitialPositions();
+snake = [initialPositions.snakePos];
+foodX = initialPositions.foodPos.x;
+foodY = initialPositions.foodPos.y;
+
+// Game Functions
 function gameLoop() {
     if (checkGameOver()) {
         showGameOver();
@@ -41,7 +53,7 @@ function gameLoop() {
     clearCanvas();
     drawFood();
     drawSnake();
-    setTimeout(gameLoop, 100);
+    setTimeout(gameLoop, GAME_SPEED);
 }
 
 function updateSnake() {
@@ -80,6 +92,7 @@ function checkGameOver() {
     return false;
 }
 
+// Input Handling
 function handleMovement(key) {
     switch (key) {
         case 'arrowup':
@@ -117,6 +130,7 @@ function isValidMovementKey(key) {
     return ['arrowup', 'w', 'arrowdown', 's', 'arrowleft', 'a', 'arrowright', 'd'].includes(key);
 }
 
+// Food Generation
 function generateFood() {
     let newPosition;
     let overlapsWithSnake;
@@ -139,6 +153,7 @@ function getRandomGridPosition() {
     };
 }
 
+// Drawing Functions
 function clearCanvas() {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -194,11 +209,7 @@ function drawSnakeSegment(x, y, isHead) {
 }
 
 function drawEyes(x, y) {
-    const direction = {
-        x: velocityX,
-        y: velocityY
-    };
-
+    const direction = { x: velocityX, y: velocityY };
     const leftEye = { x: 0, y: 0 };
     const rightEye = { x: 0, y: 0 };
     
@@ -241,7 +252,6 @@ function drawFood() {
     const x = foodX * GRID_SIZE;
     const y = foodY * GRID_SIZE;
     
-    // Main apple body (red circle)
     ctx.beginPath();
     ctx.fillStyle = '#ff0000';
     ctx.arc(
@@ -253,7 +263,6 @@ function drawFood() {
     );
     ctx.fill();
     
-    // Leaf (green)
     ctx.beginPath();
     ctx.fillStyle = '#2d5e1e';
     ctx.moveTo(x + GRID_SIZE/2, y + 4);
@@ -271,7 +280,6 @@ function drawFood() {
     );
     ctx.fill();
     
-    // Stem (brown)
     ctx.fillStyle = '#4a3728';
     ctx.fillRect(
         x + GRID_SIZE/2 - 1,
@@ -281,6 +289,7 @@ function drawFood() {
     );
 }
 
+// Game State Management
 function startOrRestartGame(key) {
     if (isValidMovementKey(key)) {
         directionsOverlay.classList.remove('active');
@@ -330,6 +339,7 @@ function getInitialPositions() {
     return { snakePos, foodPos };
 }
 
+// Event Listeners
 document.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
     
@@ -341,8 +351,3 @@ document.addEventListener('keydown', (e) => {
 
     handleMovement(key);
 });
-
-const initialPositions = getInitialPositions();
-snake = [initialPositions.snakePos];
-foodX = initialPositions.foodPos.x;
-foodY = initialPositions.foodPos.y;

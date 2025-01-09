@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A classic Snake game built with HTML5 Canvas">
     <title>Snake Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div id="directionsOverlay" class="directions-overlay active">
+    <main class="game-container">
+        <!-- Game Instructions Overlay -->
+        <div id="directionsOverlay" class="overlay directions-overlay active">
             <div class="directions-content">
-                <h2>Snake Game</h2>
-                <p>Use arrow keys or WASD to move</p>
-                <p>Eat food to grow longer</p>
-                <p>Don't hit walls or yourself!</p>
+                <h1>Snake Game</h1>
+                <div class="instructions">
+                    <p>Use arrow keys or WASD to move</p>
+                    <p>Eat food to grow longer</p>
+                    <p>Don't hit walls or yourself!</p>
+                </div>
                 <p class="start-hint">Press any direction to start</p>
             </div>
         </div>
+
+        <!-- Game Canvas -->
         <canvas id="gameCanvas"></canvas>
-        <div class="score">Score: <span id="scoreValue">0</span></div>
-        <div class="leaderboard">
-            <div>Best: <span id="bestScore">0</span></div>
-            <div>Last: <span id="lastScore">0</span></div>
+
+        <!-- Score Display -->
+        <div class="score-container">
+            <div class="score">Score: <span id="scoreValue">0</span></div>
+            <div class="leaderboard">
+                <div>Best: <span id="bestScore">0</span></div>
+                <div>Last: <span id="lastScore">0</span></div>
+            </div>
         </div>
-        <p id="gameOverOverlay" class="restart-hint">Press any direction to restart</p>
-    </div>
+
+        <!-- Game Over Message -->
+        <p id="gameOverOverlay" class="overlay restart-hint">Press any direction to restart</p>
+    </main>
     <script src="game.js"></script>
 </body>
 </html> 
