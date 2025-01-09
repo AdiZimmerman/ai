@@ -29,8 +29,8 @@ let velocityX = 0;
 let velocityY = 0;
 let snake = [];
 let foodX, foodY;
-let bestScore = parseInt(localStorage.getItem('snakeBestScore')) || 0;
-let lastScore = parseInt(localStorage.getItem('snakeLastScore')) || 0;
+let bestScore = parseInt(sessionStorage.getItem('snakeBestScore')) || 0;
+let lastScore = parseInt(sessionStorage.getItem('snakeLastScore')) || 0;
 
 // Initialize score display
 bestScoreElement.textContent = bestScore;
@@ -318,9 +318,9 @@ function showGameOver() {
     lastScore = score;
     if (score > bestScore) {
         bestScore = score;
-        localStorage.setItem('snakeBestScore', bestScore);
+        sessionStorage.setItem('snakeBestScore', bestScore);
     }
-    localStorage.setItem('snakeLastScore', lastScore);
+    sessionStorage.setItem('snakeLastScore', lastScore);
     
     bestScoreElement.textContent = bestScore;
     lastScoreElement.textContent = lastScore;
